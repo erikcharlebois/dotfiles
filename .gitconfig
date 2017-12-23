@@ -1,0 +1,33 @@
+[user]
+  name = Erik Charlebois
+  email = erikcharlebois@gmail.com
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
+  ui = auto
+  pager = true
+[core]
+  editor = vim
+  pager = less
+  quotepath = false
+  whitespace = trailing-space,space-before-tab
+[alias]
+  lg = log --graph --abbrev-commit --pretty=format:'%Cblue%h%Creset %an %Cgreen%ar%Creset%C(yellow)%d%Creset %s'
+  st = status
+  co = checkout
+  filelog = log -u
+  fl = log -u
+  gr = grep --extended-regexp -I -n --ignore-case -e
+[apply]
+  whitespace = fix
+[diff]
+  renames = copy
+  tool = vimdiff
+[difftool]
+  prompt = false
+[mergetool]
+  keepBackup = false
+[rerere]
+  enabled = true

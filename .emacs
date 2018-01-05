@@ -5,13 +5,11 @@
 (package-initialize)
 (setq package-archives
       '(("melpa" . "http://melpa.milkbox.net/packages/")
-        ("eelpa" . "http://erikcharlebois.bitbucket.io")
         ("gnu" . "http://elpa.gnu.org/packages/")))
 
 ;;; default package installation
 (let ((packages
        '(elisp-slime-nav      ; Use M-. and M-, to navigate elisp.
-         erikc-theme          ; My color theme.
          evil                 ; VIM emulation.
          anaphora             ; Anaphoric macros for elisp.
          ido-ubiquitous       ; Use ido-style completion everywhere.
@@ -131,7 +129,6 @@
 ;     '(helm-source-buffers-list helm-source-recentf))
 
 ;;; theme and font
-(load-theme 'erikc t)
 (set-language-environment "utf-8")
 (setq default-frame-alist
       `((font . ,(cl-case window-system
@@ -446,3 +443,182 @@ in another window."
       (bury-buffer)
       (with-current-buffer buffer-name
         (dired-do-query-replace-regexp regexp to-string)))))
+
+(deftheme erikc "A theme based on inkpot.")
+
+(let ((vim-cursor '(list "#ff46d7" 'box))
+      (emacs-cursor '(list "#0f0" 'box))
+      (default
+       '((t (:background "#000" :foreground "#ddd"))))
+      (region
+       '((t (:background "#5f5faf" :foreground "#ddd" :underline nil))))
+      (search
+       '((t (:background "#ffaf5f" :foreground "#000"))))
+      (header
+       '((t (:background "#262626" :foreground "#888" :height 1.0 :box nil))))
+      (popup
+       '((t (:background "#d3d3d3" :foreground "#000"))))
+      (prompt
+       '((t (:background "#000" :foreground "#708090"))))
+      (button
+       '((t (:background "#000" :foreground "#00aaff" :underline t))))
+      (compilation-info
+       '((t (:background "#000" :foreground "#00df5f"))))
+      (whitespace-line
+       '((t (:background "#a00" :foreground "#ddd"))))
+      (font-lock-builtin-face
+       '((t (:background "#000" :foreground "#c080d0"))))
+      (font-lock-comment-face
+       '((t (:background "#000" :foreground "#af5f00"))))
+      (font-lock-comment-delimiter-face
+       '((t (:background "#000" :foreground "#af5f00"))))
+      (font-lock-constant-face
+       '((t (:background "#000" :foreground "#ff5f5f"))))
+      (font-lock-doc-face
+       '((t (:background "#000" :foreground "#cd8b00"))))
+      (font-lock-function-name-face
+       '((t (:background "#000" :foreground "#97d8f8"))))
+      (font-lock-keyword-face
+       '((t (:background "#000" :foreground "#00aaff"))))
+      (font-lock-negation-char-face
+       '((t (:background "#000" :foreground "#ddd"))))
+      (font-lock-preprocessor-face
+       '((t (:background "#000" :foreground "#00af5f"))))
+      (font-lock-string-face
+       '((t (:background "#000" :foreground "#ffaf5f"))))
+      (font-lock-type-face
+       '((t (:background "#000" :foreground "#ff88ff"))))
+      (font-lock-variable-name-face
+       '((t (:background "#000" :foreground "#008b8b"))))
+      (font-lock-warning-face
+       '((t (:background "#000" :foreground "#e3606e")))))
+
+  (custom-theme-set-variables
+   'erikc
+   `(evil-default-cursor ,vim-cursor)
+   `(evil-emacs-state-cursor ,emacs-cursor))
+
+  (custom-theme-set-faces
+   'erikc
+   `(default ,default)
+   `(fringe ,default)
+
+   `(popup-tip-face ,popup)
+   `(region ,region)
+   `(highlight ,region)
+   `(show-paren-match ,region)
+   `(sp-show-pair-match-face ,region)
+
+   `(match ,search)
+   `(isearch ,search)
+   `(lazy-highlight ,search)
+   `(query-replace ,search)
+
+   `(mode-line ,header)
+   `(mode-line-inactive ,header)
+   `(header-line ,header)
+   `(which-func ,header)
+   `(compilation-mode-line-fail ,header)
+   `(compilation-mode-line-run ,header)
+   `(compilation-mode-line-exit ,header)
+
+   `(minibuffer-prompt ,prompt)
+   `(comint-highlight-prompt ,prompt)
+
+   `(link ,font-lock-keyword-face)
+   `(link-visited ,font-lock-type-face)
+   `(button ,button)
+
+   `(compilation-info ,compilation-info)
+
+   `(font-lock-builtin-face ,font-lock-builtin-face)
+   `(font-lock-comment-face ,font-lock-comment-face)
+   `(font-lock-comment-delimiter-face ,font-lock-comment-delimiter-face)
+   `(font-lock-constant-face ,font-lock-constant-face)
+   `(font-lock-doc-face ,font-lock-doc-face)
+   `(font-lock-function-name-face ,font-lock-function-name-face)
+   `(font-lock-keyword-face ,font-lock-keyword-face)
+   `(font-lock-negation-char-face ,font-lock-negation-char-face)
+   `(font-lock-preprocessor-face ,font-lock-preprocessor-face)
+   `(font-lock-string-face ,font-lock-string-face)
+   `(font-lock-type-face ,font-lock-type-face)
+   `(font-lock-variable-name-face ,font-lock-variable-name-face)
+   `(font-lock-warning-face ,font-lock-warning-face)
+
+   `(js2-jsdoc-tag ,font-lock-keyword-face)
+   `(js2-jsdoc-type ,font-lock-type-face)
+   `(js2-jsdoc-value ,font-lock-variable-name-face)
+   `(js2-function-param ,font-lock-variable-name-face)
+
+   `(erb-exec-face ,default)
+   `(erb-out-face ,default)
+   `(erb-face ,default)
+   `(erb-exec-delim-face ,font-lock-preprocessor-face)
+   `(erb-out-delim-face ,font-lock-preprocessor-face)
+   `(erb-delim-face ,font-lock-preprocessor-face)
+   `(erb-comment-face ,font-lock-comment-face)
+   `(erb-comment-delim-face ,font-lock-comment-face)
+
+   `(ido-first-match ,region)
+   `(ido-subdir ,font-lock-builtin-face)
+
+   `(whitespace-line ,whitespace-line)
+   `(whitespace-trailing ,whitespace-line)
+
+   `(erc-header-line ,header)
+   `(erc-timestamp-face ,prompt)
+   `(erc-prompt-face ,prompt)
+   `(erc-notice-face ,prompt)
+   `(erc-direct-msg-face ,region)
+   `(erc-input-face ,header)
+   `(erc-action-face ,font-lock-builtin-face)
+   `(erc-error-face ,font-lock-warning-face)
+   `(erc-my-nick-face ,font-lock-keyword-face)
+   `(erc-nick-default-face ,font-lock-keyword-face)
+
+   `(helm-source-header ,header)
+   `(helm-match ,default)
+   `(helm-header ,header)
+   `(helm-candidate-number ,header)
+   `(helm-selection ,region)
+   `(helm-action ,default)
+   `(helm-ff-file ,default)
+   `(helm-buffer-process ,font-lock-comment-face)
+   `(helm-ff-directory ,font-lock-keyword-face)
+
+   `(web-mode-html-tag-face ,font-lock-keyword-face)
+   `(web-mode-html-attr-name-face ,font-lock-variable-name-face)
+   `(web-mode-doctype-face ,font-lock-keyword-face)
+   `(web-mode-symbol-face ,font-lock-constant-face)
+
+   `(company-tooltip ((t :background "lightgray" :foreground "black")))
+   `(company-tooltip-selection ((t :background "steelblue" :foreground "white")))
+   `(company-tooltip-mouse ((t :background "blue" :foreground "white")))
+   `(company-tooltip-common ((t :background "lightgray" :foreground "black")))
+   `(company-tooltip-common-selection ((t t :background "lightgray" :foreground "black")))
+   `(company-scrollbar-fg ((t :background "black")))
+   `(company-scrollbar-bg ((t :background "gray")))
+   `(company-preview ((t :background nil :foreround "darkgray")))
+   `(company-preview-common ((t :background nil :foreground "darkgray")))
+
+   `(fuel-font-lock-markup-link ,button)
+   `(fuel-font-lock-xref-link ,button)
+   `(fuel-font-lock-stack-region ,region)
+
+   `(factor-font-lock-comment ,font-lock-comment-face)
+   `(factor-font-lock-vocabulary-name ,default)
+   `(factor-font-lock-symbol ,default)
+   `(factor-font-lock-invalid-syntax ,default)
+   `(factor-font-lock-declaration ,font-lock-comment-face)
+   `(factor-font-lock-error-form ,font-lock-builtin-face)
+   `(factor-font-lock-constructor ,font-lock-builtin-face)
+   `(factor-font-lock-getter-word ,font-lock-builtin-face)
+   `(factor-font-lock-setter-word ,font-lock-builtin-face)
+   `(factor-font-lock-number ,font-lock-constant-face)
+   `(factor-font-lock-ratio ,font-lock-constant-face)
+   `(factor-font-lock-constant ,font-lock-constant-face)
+   `(factor-font-lock-stack-effect ,font-lock-comment-face)
+   `(factor-font-lock-string ,font-lock-string-face)
+   `(factor-font-lock-word ,font-lock-function-name-face)
+   `(factor-font-lock-type-name ,font-lock-builtin-face)
+   `(factor-font-lock-parsing-word ,font-lock-keyword-face)))
